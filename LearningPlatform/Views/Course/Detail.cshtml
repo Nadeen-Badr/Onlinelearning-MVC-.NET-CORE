@@ -1,0 +1,41 @@
+@model CourseDetailViewModel
+
+<h1>@Model.Course.Title</h1>
+<p>@Model.Course.Description</p>
+<img src="@Model.Course.ImageUrl" alt="@Model.Course.Title" />
+
+@if (User.IsInRole("Instructor"))
+{
+    <a href="@Url.Action("Create", "Lesson", new { courseId = Model.Course.CourseId })" class="btn btn-primary">Create Lesson</a>
+}
+
+<h2>Lessons</h2>
+@foreach (var lesson in Model.Lessons)
+{
+    <div>
+        <h3>@lesson.Title</h3>
+        <p>@lesson.Content</p>
+
+        @{
+            var isRead = Model.LessonProgress?.Any(lp => lp.LessonId == lesson.LessonId && lp.IsRead) ?? false;
+        }
+
+        @if (User.IsInRole("Student")) // Check if the user is a student
+        {
+            @if (!isRead)
+            {
+                <form asp-controller="Lesson" asp-action="MarkAsRead" asp-route-lessonId="@lesson.LessonId" method="post">
+                    <button type="submit" class="btn btn-success">Mark as Read</button>
+                </form>
+            }
+            else
+            {
+                <p>This lesson has already been marked as read.</p>
+            }
+        }
+        else
+        {
+            <p>Only students can mark this lesson as read.</p>
+        }
+    </div>
+}

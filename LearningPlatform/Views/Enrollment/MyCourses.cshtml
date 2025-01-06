@@ -1,0 +1,32 @@
+@model IEnumerable<Enrollment>
+
+<h1>My Enrolled Courses</h1>
+
+@if (!Model.Any())
+{
+    <p>You are not enrolled in any courses yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course Title</th>
+                <th>Enrollment Date</th>
+                <th>Progress</th>
+                <th>view</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var enrollment in Model)
+            {
+                <tr>
+                    <td>@enrollment.Course.Title</td>
+                    <td>@enrollment.EnrollmentDate.ToString("MM/dd/yyyy")</td>
+                    <td>@enrollment.Progress %</td>
+                    <td><a href="@Url.Action("Detail", "Course", new { id = enrollment.CourseId })" class="btn btn-info">Detail</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

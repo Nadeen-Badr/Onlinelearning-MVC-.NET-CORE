@@ -1,0 +1,39 @@
+@using System.Security.Claims
+@model IEnumerable<Course>
+
+
+<h1>All Courses</h1>
+
+@foreach (var course in Model)
+{
+    <div>
+        <h2>@course.Title</h2>
+        <p>@course.Description</p>
+        <img src="@course.ImageUrl" alt="@course.Title" />
+
+        @if (User.IsInRole("Student"))
+        {
+            // Get the enrollment status from ViewBag
+            var isEnrolled = ViewBag.CourseEnrollments[course.CourseId];
+            
+            if (isEnrolled)
+            {      <button class="btn btn-secondary" disabled>Already Enrolled</button>
+            
+                // Display Unenroll button if user is enrolled
+                <form asp-action="Unenroll" asp-controller="Enrollment" method="post">
+                    <input type="hidden" name="courseId" value="@course.CourseId" />
+                    <button type="submit" class="btn btn-danger">Unenroll</button>
+                </form>
+            }
+            else
+            {
+                // Display Enroll button if user is not enrolled
+                <form asp-action="Enroll" asp-controller="Enrollment" method="post">
+                    <input type="hidden" name="courseId" value="@course.CourseId" />
+                    <button type="submit" class="btn btn-primary">Enroll</button>
+                </form>
+            }
+        }
+    </div>
+}
+

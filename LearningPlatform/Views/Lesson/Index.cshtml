@@ -1,0 +1,22 @@
+@model IEnumerable<Lesson>
+
+<h1>Lessons</h1>
+
+@foreach (var lesson in Model)
+{
+    <div>
+        <h2>@lesson.Title</h2>
+        <p>@lesson.Content</p>
+    </div>
+        @if (!ViewBag.IsRead)
+    {
+        <form asp-action="MarkAsRead" method="post">
+            <input type="hidden" name="lessonId" value="@lesson.LessonId" />
+            <button type="submit" class="btn btn-success">Mark as Read</button>
+        </form>
+    }
+    else
+    {
+        <span class="badge badge-success">Read</span>
+}
+}

@@ -1,0 +1,18 @@
+@model IEnumerable<Course>
+
+<h1>My Courses</h1>
+
+@foreach (var course in Model)
+{
+    <div>
+        <h2>@course.Title</h2>
+        <p>@course.Description</p>
+        <img src="@course.ImageUrl" alt="@course.Title" />
+        <a asp-action="Edit" asp-route-id="@course.CourseId">Edit</a>
+        <form asp-action="Delete" method="post" asp-route-id="@course.CourseId" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+          <a href="@Url.Action("Detail", "Course", new { id = course.CourseId })" class="btn btn-info">Detail</a>
+     
+    </div>
+}
