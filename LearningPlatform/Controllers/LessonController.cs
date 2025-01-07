@@ -117,4 +117,16 @@ public class LessonController : Controller
 
         return RedirectToAction("MyCourses", "Enrollment");
     }
+public async Task<IActionResult> Detail(int lessonId)
+{
+    var lesson = await _lessonRepository.GetLessonByIdAsync(lessonId);
+
+    if (lesson == null)
+    {
+        return NotFound();
+    }
+
+    return View(lesson); // Ensure this matches the view's name and location
+}
+
 }

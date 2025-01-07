@@ -1,8 +1,32 @@
-﻿@{
+﻿<head>
+    <link rel="stylesheet" href="~/css/custom.css" />
+</head>
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="animated-text">
+    <h1 class="display-4">
+        <span>Welcome</span> <span>to</span> <span>Our</span> <span>Learning</span> <span>Platform</span>
+    </h1>
 </div>
+<div class="text-center">
+    <p class="introduction">Your journey to knowledge starts here. Sign up or sign in to access courses, track your
+        progress, and achieve your goals.</p>
+</div>
+   <div class="action-buttons">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-primary" href="@Url.Action("Index", "Course")">View Courses</a>
+        }
+        else
+        {
+            <a class="btn btn-primary" href="@Url.Action("Login", "Auth")">Sign In</a>
+            <a class="btn btn-secondary" href="@Url.Action("Register", "Auth")">Sign Up</a>
+        }
+    </div>

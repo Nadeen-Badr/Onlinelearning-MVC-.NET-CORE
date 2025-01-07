@@ -1,27 +1,33 @@
 @model Course
 
-<h1>Create Course</h1>
+<body style="padding: 80px !important; background-color: rgba(0, 0, 0, 0.8) !important; color: white !important; font-family: Arial, sans-serif;">
+   
 
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
-    <div class="form-group">
-        <label asp-for="Duration"></label>
-        <input asp-for="Duration" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Upload Image</label>
-        <input name="Image" type="file" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+    <form asp-action="Create" enctype="multipart/form-data" style="background-color: rgba(0, 0, 0, 0.5) !important; padding: 2rem; border-radius: 8px; max-width: 600px; margin: auto; color: white !important;">
+         <h1 style="text-align: center; margin-bottom: 2rem;">Create Course</h1>
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label asp-for="Title" style="font-weight: bold !important;">Title</label>
+            <input asp-for="Title" class="form-control" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label asp-for="Description" style="font-weight: bold !important;">Description</label>
+            <textarea asp-for="Description" class="form-control" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label asp-for="Duration" style="font-weight: bold !important;">Duration</label>
+            <input asp-for="Duration" class="form-control" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label asp-for="Price" style="font-weight: bold !important;">Price</label>
+            <input asp-for="Price" class="form-control" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="font-weight: bold !important;">Upload Image</label>
+            <input name="Image" type="file" class="form-control" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; background-color: #258cfb !important; color: white !important; border: none !important; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease !important;" onmouseover="this.style.backgroundColor='#A6E1FA'" onmouseout="this.style.backgroundColor='#258cfb'">
+            Create
+        </button>
+    </form>
+</body>
+

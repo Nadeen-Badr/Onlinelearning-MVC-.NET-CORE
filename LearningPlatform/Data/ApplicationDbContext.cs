@@ -13,6 +13,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<QuizAttempt> QuizAttempts { get; set; }
     public DbSet<LessonProgress> LessonProgresses { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<QuizOption> QuizOption { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 {

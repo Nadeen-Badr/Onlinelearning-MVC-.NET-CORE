@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\LearningPlatform.bundle.scp.css"
     },
     {
+      "Id": "D:\\git reeepooos\\Onlinelearning-MVC-.NET-CORE\\LearningPlatform\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
       "Id": "D:\\git reeepooos\\Onlinelearning-MVC-.NET-CORE\\LearningPlatform\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

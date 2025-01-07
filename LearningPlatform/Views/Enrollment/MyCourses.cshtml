@@ -1,5 +1,78 @@
 @model IEnumerable<Enrollment>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Enrolled Courses</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 80px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            background-color:  rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .table th, .table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            color: white;
+        }
+        .table th {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .progress {
+            background-color: #e0e0e0;
+            height: 20px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #28a745;
+            width: 0;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            border-radius: 4px;
+            transition: width 0.3s ease-in-out;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .btn-info:hover {
+            background-color: #138f99;
+        }
+        .table-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
 <h1>My Enrolled Courses</h1>
 
 @if (!Model.Any())
@@ -8,25 +81,34 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Course Title</th>
-                <th>Enrollment Date</th>
-                <th>Progress</th>
-                <th>view</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var enrollment in Model)
-            {
+    <div class="table-container">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@enrollment.Course.Title</td>
-                    <td>@enrollment.EnrollmentDate.ToString("MM/dd/yyyy")</td>
-                    <td>@enrollment.Progress %</td>
-                    <td><a href="@Url.Action("Detail", "Course", new { id = enrollment.CourseId })" class="btn btn-info">Detail</a></td>
+                    <th>Course Title</th>
+                    <th>Enrollment Date</th>
+                    <th>Progress</th>
+                    <th>View</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var enrollment in Model)
+                {
+                    <tr>
+                        <td>@enrollment.Course.Title</td>
+                        <td>@enrollment.EnrollmentDate.ToString("MM/dd/yyyy")</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: @enrollment.Progress%;">@enrollment.Progress%</div>
+                            </div>
+                        </td>
+                        <td><a href="@Url.Action("Detail", "Course", new { id = enrollment.CourseId })" class="btn btn-info">Detail</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
+
+</body>
+</html>

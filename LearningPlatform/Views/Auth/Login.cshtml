@@ -2,16 +2,29 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
+<body style="background-color: #1c1c1c; color: white !important; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 80px 0 !important; margin: 0 !important;">
+    <form method="post" asp-action="Login" style="background-color: rgba(0, 0, 0, 0.5) !important; padding: 2rem; border-radius: 8px; max-width: 400px; margin: auto; color: white !important;">
+        <h2 style="text-align: center; color: white; font-size: 1.8rem; margin-bottom: 1.5rem;">Login</h2>
+    @if (TempData["LoginError"] != null)
+        {
+            <div style="background-color: rgba(255, 0, 0, 0.3); color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+                <strong>@TempData["LoginError"]</strong>
+            </div>
+        }
+        <div style="margin-bottom: 1rem;">
+            <label for="username" style="font-weight: bold !important;">Username</label>
+            <input type="text" id="username" name="username" required style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
 
-<form method="post" asp-action="Login">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <button type="submit">Login</button>
-</form>
+        <div style="margin-bottom: 1rem;">
+            <label for="password" style="font-weight: bold !important;">Password</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+        </div>
+
+        <button type="submit" style="width: 100%; padding: 0.75rem; background-color: #258cfb !important; color: white !important; border: none !important; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease !important;" onmouseover="this.style.backgroundColor='#A6E1FA'" onmouseout="this.style.backgroundColor='#258cfb'">
+            Login
+        </button>
+    </form>
+
+  
+</body>

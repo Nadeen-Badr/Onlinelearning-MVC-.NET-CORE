@@ -1,0 +1,34 @@
+@model Quiz
+
+<h1>Create Quiz</h1>
+
+<form asp-action="Create" asp-controller="Quiz" method="post">
+<input type="hidden" name="CourseId" value="@ViewBag.CourseId" />
+
+    <div class="form-group">
+        <label asp-for="Question">Question</label>
+        <input asp-for="Question" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LessonId">Select Lesson</label>
+        <select asp-for="LessonId" class="form-control" asp-items="@(new SelectList(ViewBag.Lessons, "LessonId", "Title"))">
+            <option value="">-- Select Lesson --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Options">Options</label>
+        <div id="options">
+            <div class="option">
+                <input type="text" name="Options[0].OptionText" class="form-control" placeholder="Option 1" />
+                <label>
+                    <input type="radio" name="Options[0].IsCorrect" value="true" /> Correct
+                </label>
+            </div>
+            <!-- Repeat for additional options (Option 2, Option 3, etc.) -->
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Quiz</button>
+</form>

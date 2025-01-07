@@ -1,41 +1,109 @@
 @model CourseDetailViewModel
 
-<h1>@Model.Course.Title</h1>
-<p>@Model.Course.Description</p>
-<img src="@Model.Course.ImageUrl" alt="@Model.Course.Title" />
-
-@if (User.IsInRole("Instructor"))
-{
-    <a href="@Url.Action("Create", "Lesson", new { courseId = Model.Course.CourseId })" class="btn btn-primary">Create Lesson</a>
-}
-
-<h2>Lessons</h2>
-@foreach (var lesson in Model.Lessons)
-{
-    <div>
-        <h3>@lesson.Title</h3>
-        <p>@lesson.Content</p>
-
-        @{
-            var isRead = Model.LessonProgress?.Any(lp => lp.LessonId == lesson.LessonId && lp.IsRead) ?? false;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Course.Title</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 80px;
+            font-family: Arial, sans-serif;
         }
-
-        @if (User.IsInRole("Student")) // Check if the user is a student
-        {
-            @if (!isRead)
-            {
-                <form asp-controller="Lesson" asp-action="MarkAsRead" asp-route-lessonId="@lesson.LessonId" method="post">
-                    <button type="submit" class="btn btn-success">Mark as Read</button>
-                </form>
-            }
-            else
-            {
-                <p>This lesson has already been marked as read.</p>
-            }
+        .course-header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
-        else
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary { background-color: #258cfb; color: white; }
+        .btn-info { background-color: #17a2b8; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn:hover { opacity: 0.8; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="course-header">
+        <h1>@Model.Course.Title</h1>
+        <p>@Model.Course.Description</p>
+        <img src="@Model.Course.ImageUrl" alt="@Model.Course.Title" />
+        
+        @if (User.IsInRole("Instructor"))
         {
-            <p>Only students can mark this lesson as read.</p>
+            <a href="@Url.Action("Create", "Lesson", new { courseId = Model.Course.CourseId })" class="btn btn-primary">Create Lesson</a>
         }
     </div>
-}
+
+    <h2>Lessons</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lesson in Model.Lessons)
+            {
+                <tr>
+                    <td>@lesson.Title</td>
+                    <td>@lesson.Content</td>
+                    <td>
+                        <a href="@Url.Action("Detail", "Lesson", new { LessonId = lesson.LessonId })" class="btn btn-info">View</a>
+                        @{
+                            var isRead = Model.LessonProgress?.Any(lp => lp.LessonId == lesson.LessonId && lp.IsRead) ?? false;
+                        }
+
+                        @if (User.IsInRole("Student"))
+                        {
+                            @if (!isRead)
+                            {
+                                <form asp-controller="Lesson" asp-action="MarkAsRead" asp-route-lessonId="@lesson.LessonId" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-success">Mark as Read</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <p style="display:inline; margin-left: 0.5rem;">Already marked as read</p>
+                            }
+                        }
+                        else
+                        {
+                            <p style="display:inline; margin-left: 0.5rem;">Only students can mark as read</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

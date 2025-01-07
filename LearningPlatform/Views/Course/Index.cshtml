@@ -1,39 +1,133 @@
 @using System.Security.Claims
 @model IEnumerable<Course>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 80px;
+        }
+        .course-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem;
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+        }
+        .course-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        .course-description {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .course-duration {
+          
+            color: #39e941;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #258cfb;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1a6db8;
+        }
+        .btn-secondary {
+            background-color: grey;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #707070;
+        }
+        .btn-danger {
+            background-color: red;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: darkred;
+        }
+        .instructor-name {
+            font-style: italic;
+            color: #cccccc;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
 
 <h1>All Courses</h1>
 
-@foreach (var course in Model)
-{
-    <div>
-        <h2>@course.Title</h2>
-        <p>@course.Description</p>
-        <img src="@course.ImageUrl" alt="@course.Title" />
+<div class="courses-container">
+    @foreach (var course in Model)
+    {
+        <div class="course-card">
+            <h2 class="course-title">@course.Title</h2>
+            <p class="course-description">@course.Description</p>
+            <img src="@course.ImageUrl" alt="@course.Title" />
+            <p class="course-duration"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
+  <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z"/>
+  <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3"/>
+</svg> Duration: @course.Duration</p>
 
-        @if (User.IsInRole("Student"))
-        {
-            // Get the enrollment status from ViewBag
-            var isEnrolled = ViewBag.CourseEnrollments[course.CourseId];
-            
-            if (isEnrolled)
-            {      <button class="btn btn-secondary" disabled>Already Enrolled</button>
-            
-                // Display Unenroll button if user is enrolled
-                <form asp-action="Unenroll" asp-controller="Enrollment" method="post">
-                    <input type="hidden" name="courseId" value="@course.CourseId" />
-                    <button type="submit" class="btn btn-danger">Unenroll</button>
-                </form>
-            }
-            else
+            @if (User.IsInRole("Student"))
             {
-                // Display Enroll button if user is not enrolled
-                <form asp-action="Enroll" asp-controller="Enrollment" method="post">
-                    <input type="hidden" name="courseId" value="@course.CourseId" />
-                    <button type="submit" class="btn btn-primary">Enroll</button>
-                </form>
-            }
-        }
-    </div>
-}
+                // Get the enrollment status from ViewBag
+                var isEnrolled = ViewBag.CourseEnrollments[course.CourseId];
 
+                if (isEnrolled)
+                {
+                    <button class="btn btn-secondary" disabled>Already Enrolled</button>
+
+                    <!-- Display Unenroll button if user is enrolled -->
+                    <form asp-action="Unenroll" asp-controller="Enrollment" method="post">
+                        <input type="hidden" name="courseId" value="@course.CourseId" />
+                        <button type="submit" class="btn btn-danger">Unenroll</button>
+                    </form>
+                }
+                else
+                {
+                    <!-- Display Enroll button if user is not enrolled -->
+                    <form asp-action="Enroll" asp-controller="Enrollment" method="post">
+                        <input type="hidden" name="courseId" value="@course.CourseId" />
+                        <button type="submit" class="btn btn-primary">Enroll</button>
+                    </form>
+                }
+            }
+            else{
+                 <p class="course-description">instructor can't Enroll in Courses Make a student Account or Visit Your courses for Management</p>
+            }
+        </div>
+    }
+</div>
+
+</body>
+</html>

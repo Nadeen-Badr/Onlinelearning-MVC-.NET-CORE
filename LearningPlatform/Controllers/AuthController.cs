@@ -62,16 +62,18 @@ public async Task<IActionResult> Register(string username, string password, stri
     }
 
     // Sign in (POST request)
-    [HttpPost]
-    public async Task<IActionResult> Login(string username, string password)
+   [HttpPost]
+public async Task<IActionResult> Login(string username, string password)
+{
+    var result = await _authRepository.SignInUserAsync(username, password);
+    if (result.Succeeded)
     {
-        var result = await _authRepository.SignInUserAsync(username, password);
-        if (result.Succeeded)
-        {
-            return RedirectToAction("Index", "Home");
-        }
-        return View("Login", "Invalid login attempt.");
+        return RedirectToAction("Index", "Course");
     }
+    
+    TempData["LoginError"] = "Invalid login attempt.";  // Set the error message in TempData
+    return RedirectToAction("Login");  // Redirect to the Login page again
+}
 
     // Logout
     public async Task<IActionResult> Logout()

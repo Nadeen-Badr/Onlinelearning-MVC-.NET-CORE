@@ -89,7 +89,7 @@ public async Task<IActionResult> Create(Course course, IFormFile Image)
         }
 
         await _courseRepository.AddCourseAsync(course);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("MyCourses", "Course");
     }
 
     // Log any model errors
@@ -205,6 +205,15 @@ public async Task<IActionResult> Edit(int id, Course course, IFormFile? Image)
 
     // 5. Delete course
     [Authorize(Roles = "Instructor")]
+  public async Task<IActionResult> ConfirmDelete(int id)
+    {
+        var course = await _courseRepository.GetCourseByIdAsync(id);
+        if (course == null)
+        {
+            return NotFound();
+        }
+        return View(course);
+    }
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {

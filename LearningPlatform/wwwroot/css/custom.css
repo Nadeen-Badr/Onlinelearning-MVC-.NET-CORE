@@ -1,0 +1,100 @@
+/* wwwroot/css/custom-styles.css */
+.moving-text {
+    display: inline-block;
+    animation: moveText 5s linear infinite;
+    color: darkcyan;
+}
+
+@keyframes moveText {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+.introduction {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #E0E0E0;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background-color: #BB86FC;
+    border-color: #BB86FC;
+}
+
+.btn-secondary {
+    background-color: #03DAC5;
+    border-color: #03DAC5;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+}
+body {
+    background: linear-gradient(135deg, #BB86FC, #03DAC5); /* Gradient from purple to aqua */
+    color: #E0E0E0; /* Light text color for contrast */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h1, p {
+    margin: 0 0 20px 0;
+}
+
+.btn {
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #BB86FC;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: #03DAC5;
+    border: none;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+}
+.animated-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: wordFadeIn 1s forwards;
+    animation-delay: calc(var(--i) * 0.5s);
+}
+
+/* Custom keyframes for word animation */
+@keyframes wordFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply a custom property to each span */
+.animated-text span:nth-child(1) { --i: 0; }
+.animated-text span:nth-child(2) { --i: 1; }
+.animated-text span:nth-child(3) { --i: 2; }
+.animated-text span:nth-child(4) { --i: 3; }
+.animated-text span:nth-child(5) { --i: 4; }
+/* Add more as needed for additional words */
+

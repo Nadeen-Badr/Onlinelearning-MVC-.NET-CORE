@@ -1,32 +1,14 @@
 @{
     ViewData["Title"] = "Register";
 }
+<body style="padding: 80px;">
+<h2 style="color: white !important; font-weight: bold !important; text-transform: uppercase !important; padding: 1rem 2rem !important; text-align: center !important;">
+    Register
+</h2>
 
-<h2>Register</h2>
-
-<form method="post" asp-action="Register">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <div>
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" required />
-    </div>
-    <div>
-        <label for="role">Role</label>
-        <select id="role" name="role">
-            <option value="Student">Student</option>
-            <option value="Instructor">Instructor</option>
-        </select>
-    </div>
-       @if (!ViewData.ModelState.IsValid)
+    @if (!ViewData.ModelState.IsValid)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="color: white !important; background-color: rgba(255, 0, 0, 0.7) !important; padding: 1rem !important; border-radius: 5px;">
             <ul>
                 @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                 {
@@ -35,5 +17,34 @@
             </ul>
         </div>
     }
-    <button type="submit">Register</button>
+<form method="post" asp-action="Register" style="background-color: rgba(0, 0, 0, 0.5) !important; padding: 2rem; border-radius: 8px; max-width: 400px; margin: auto; color: white !important;">
+    <div style="margin-bottom: 1rem;">
+        <label for="username" style="font-weight: bold !important;">Username</label>
+        <input type="text" id="username" name="username" required style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        <label for="password" style="font-weight: bold !important;">Password</label>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        <label for="fullName" style="font-weight: bold !important;">Full Name</label>
+        <input type="text" id="fullName" name="fullName" required style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color: white !important; transition: border-color 0.3s ease !important;" />
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        <label for="role" style="font-weight: bold !important;">Role</label>
+        <select id="role" name="role" style="width: 100%; padding: 0.5rem; background-color: transparent; border: 1px solid white; border-radius: 4px; color:black !important; transition: border-color 0.3s ease !important;">
+            <option value="Student">Student</option>
+            <option value="Instructor">Instructor</option>
+        </select>
+    </div>
+
+
+    <button type="submit" style="width: 100%; padding: 0.75rem; background-color: #258cfb !important; color: white !important; border: none !important; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease !important;" onmouseover="this.style.backgroundColor='#A6E1FA'" onmouseout="this.style.backgroundColor='#258cfb'">
+        Register
+    </button>
 </form>
+
+</body>
